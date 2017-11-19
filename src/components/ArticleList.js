@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Article from './Article'
+import CommentList from './CommentList.js'
 
 export default class ArticleList extends Component {
 /*
@@ -17,9 +18,17 @@ export default class ArticleList extends Component {
 
 */
     render() {
-        const articleElements = this.props.articles.map((article, index) => <li key = {article.id}>
-            <Article article = {article} defaultOpen = {index === 0}/>
-        </li>)
+
+        const articleElements = this.props.articles.map((article, index) => {
+
+            const commentsListElement = article.comments && <CommentList comments = {article.comments}></CommentList>
+            return (
+                <li key = {article.id}>
+                    <Article article = {article} defaultOpen = {index === 0}/>
+                    {commentsListElement}
+                </li>)
+        })
+
         return (
             <ul>
                 {articleElements}
